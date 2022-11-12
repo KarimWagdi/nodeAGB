@@ -1,6 +1,6 @@
 const express = require("express");
 const managerRouter = express.Router();
-const managerControler = require ("../controler/ManagerControler")
+const managerControler = require ("../controller/ManagerControler")
 
 managerRouter.get("/notes" ,managerControler.getAllManagers);
 managerRouter.post("/notes/save" ,managerControler.saveNewManager);

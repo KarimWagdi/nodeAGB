@@ -1,6 +1,6 @@
 const express = require("express");
 const videoRouter = express.Router();
-const videoControler = require ("../controler/VideosControler")
+const videoControler = require ("../controller/VideosControler")
 
 videoRouter.get("/notes" ,videoControler.getAllVideos);
 videoRouter.post("/notes/save" ,videoControler.saveNewVideo);
