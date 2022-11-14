@@ -16,7 +16,7 @@ const gradeRouter = require("./routes/GradeRoute");
 
 const app = express();
 
-const fileStorage = multer.diskStorage({
+const imageFileStorage = multer.diskStorage({
     destination: (req, file, cb)=>{
         cb(null, 'images');
     },
@@ -25,7 +25,7 @@ const fileStorage = multer.diskStorage({
     }
 });
 
-const fileFilter = (req, file, cb) => {
+const imageFileFilter = (req, file, cb) => {
     if(
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
@@ -37,9 +37,34 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
+
+const videoFileStorage = multer.diskStorage({
+    destination: (req, file, cb)=>{
+        cb(null, 'videos');
+    },
+    filename: (req, file, cb) =>{
+        cb(null, uuidv4()); 
+    }
+});
+
+const videoFileFilter = (req, file, cb) => {
+    if(
+        file.mimetype === 'video/png' ||
+        file.mimetype === 'video/jpg' ||
+        file.mimetype === 'video/jpeg'
+    ){
+        cb(null, true);
+    }else{
+        cb(null, false)
+    }
+};
+
+
 // app.use(bodyParser.urlencoded({ extended : false}));  
 app.use(bodyParser.json());
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
+app.use(multer({storage: imageFileStorage, fileFilter: imageFileFilter}).single('image'));
+app.use(multer({storage: videoFileStorage, fileFilter: videoFileFilter}).single('video'));
+
 app.use(cors);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

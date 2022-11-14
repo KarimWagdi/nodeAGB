@@ -18,6 +18,8 @@ exports.getAllVideos = async(req , res , next) => {
 
 exports.saveNewVideo = async(req , res, next) => {
     try {
+        const video = req.file.path.replace("\\", "/");
+        req.body.video = video;
         const videos = new Videos(req.body);
         await videos.save();
         res.status(201).send(videos);
@@ -35,7 +37,7 @@ exports.updateVideo = async(req , res, next) => {
         const id = req.params.id;
         const videos = await Videos.findById(id);
         if(!videos){
-            errorThrewer(404, 'No video for this id');
+            errorThrower(404, 'No video for this id');
         }
         videos.name = req.body.name;
         videos.grade = req.body.grade;
