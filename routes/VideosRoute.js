@@ -2,10 +2,10 @@ const express = require("express");
 const videoRouter = express.Router();
 const videoControler = require ("../controller/VideosControler")
 
-videoRouter.get("/notes" ,videoControler.getAllVideos);
-videoRouter.post("/notes/save" ,videoControler.saveNewVideo);
-videoRouter.delete("/notes/delete" ,videoControler.deleteVideo);
-videoRouter.put("/notes/update" ,videoControler.updateVideo);
+videoRouter.get("" ,videoControler.getAllVideos);
+videoRouter.post("" ,videoControler.saveNewVideo);
+videoRouter.delete("/:id" ,videoControler.deleteVideo);
+videoRouter.put("/:id" ,videoControler.updateVideo);
 
 
 module.exports = videoRouter ;

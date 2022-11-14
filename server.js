@@ -52,6 +52,8 @@ app.use("/api/v1/teacher" , teacherRouter)
 app.use("/api/v1/grade", gradeRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/events", eventsRouter);
+app.use("/api/v1/videos", videosRouter);
+
 
 
 app.use(error);
