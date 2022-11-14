@@ -14,6 +14,22 @@ const eventSchema = new Schema({
         type: String,
         required: true
     },
+    grade:{
+        type: String,
+        required: true
+    },
+    location:{
+        type: {
+            name: {
+                type: String,
+                required: true
+            },
+            url: {
+                type: String,
+            }
+        },
+        required: true
+    },
     image: {
         type: String,
         required: true

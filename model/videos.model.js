@@ -2,10 +2,7 @@ const mongoose = require ("mongoose");
 const Schema = mongoose.Schema ; 
 
 const videoSchema = new Schema ({
-    lessonNum : {
-        type : Number , 
-        required : true 
-    },
+    
     lessonTitle : {
         type : String , 
         required : true 
@@ -24,4 +21,4 @@ const videoSchema = new Schema ({
     }
 })
 
-module.exports = mongoose.model('Videos', videosSchema);
+module.exports = mongoose.model('Videos', videoSchema);
