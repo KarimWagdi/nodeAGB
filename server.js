@@ -10,7 +10,6 @@ const {v4: uuidv4} = require('uuid');
 const studentRouter = require("./routes/StudentRoute");
 const teacherRouter = require("./routes/TeacherRoute");
 const adminRouter = require('./routes/AdminRoute');
-const managerRouter = require("./routes/ManagerRoute");
 const videosRouter = require("./routes/VideosRoute");
 const eventsRouter =  require("./routes/EventsRoute");
 const gradeRouter = require("./routes/GradeRoute");
