@@ -65,8 +65,9 @@ exports.deleteVideo = async(req , res, next) => {
         const id = req.params.id;
         const video = await Videos.findByIdAndDelete(id);
         if(!video){
-            errorThrewer(404, 'No video with this id');
+            errorThrower(404, 'No video with this id');
         }
+        clearImage(video.lessonURL)
         res.status(200).send(video._id);
     } catch (error) {
         if(!error.statusCode){
@@ -79,7 +80,6 @@ exports.deleteVideo = async(req , res, next) => {
 exports.getByTeacherId = async(req, res, next)=>{
     try {
         const id = req.query['id'];
-        console.log(id);
         const videos = await Videos.find({lessonCreator: id});
         if(!videos){
             errorThrower(401, 'No videos');
@@ -96,7 +96,6 @@ exports.getByTeacherId = async(req, res, next)=>{
 exports.getByStudentGrade = async(req, res, next)=>{
     try {
         const grade = req.query['grade'];
-        console.log(id);
         const videos = await Videos.find({lessonGrade: grade});
         if(!videos){
             errorThrower(401, 'No videos');
