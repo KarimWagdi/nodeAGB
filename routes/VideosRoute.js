@@ -6,6 +6,6 @@ videoRouter.get("" ,videoControler.getAllVideos);
 videoRouter.post("" ,videoControler.saveNewVideo);
 videoRouter.delete("/:id" ,videoControler.deleteVideo);
 videoRouter.put("/:id" ,videoControler.updateVideo);
-
-
+videoRouter.get("/teacher/lessons", videoControler.getByTeacherId)
+videoRouter.get("/student/lessons", videoControler.getByStudentGrade)
 module.exports = videoRouter ;

@@ -4,10 +4,6 @@ const errorThrower = require('../util/error');
 
 exports.login = async(req, res, next) => {
     try {
-        console.log(req.body.email);
-        console.log(req.body.password);
-        const users = await Admin.find();
-        console.log(users);
         const user = await Admin.findOne({email: req.body.email});
         if(!user){
             errorThrower(404, 'No user for this account');

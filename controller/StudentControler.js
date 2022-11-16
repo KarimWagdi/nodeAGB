@@ -97,7 +97,7 @@ exports.updateStudent = async (req, res, next) => {
                 from: 'mohamed.elsayed.abd@outlook.com',
                 subject: 'Updated credentials',
                 html:`<h1>Your login password has been updated the new password is</h1>
-                <p>password: ${req.body.password}</ p>`
+                <p>password: ${req.body.password}</p>`
             })
         }
         student.name = req.body.name;
