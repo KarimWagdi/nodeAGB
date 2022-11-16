@@ -54,7 +54,6 @@ exports.updateEvent = async(req, res, next) => {
         if(!event){
             errorThrower(404, 'Couldnt find evet with this Id');
         }
-        console.log(req.body);
         if(req.body.imageUrl !== event.image){
             clearImage(event.image); 
         }

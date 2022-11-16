@@ -8,7 +8,7 @@ const videoSchema = new Schema ({
         required : true 
     },
     lessonGrade : {
-        type : Number , 
+        type : String , 
         required : true 
     },
     lessonURL : {
@@ -18,6 +18,11 @@ const videoSchema = new Schema ({
     lessonSubj : {
         type : String ,
         required : true
+    },
+    lessonCreator:{
+        type: Schema.Types.ObjectId,
+        ref: 'Teachers',
+        required: true
     }
 })
 

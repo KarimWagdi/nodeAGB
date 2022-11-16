@@ -40,9 +40,9 @@ exports.saveNewTeacher = async(req , res, next) => {
             to: teacher.email,
             from: 'mohamed.elsayed.abd@outlook.com',
             subject: 'login information ',
-            html:`<h1>You are now able to log in to your school account using provided email and password in this mail<h1>
-            <p>email: ${teacher.email}<p>
-            <p>password: ${teacher.password}<p>`
+            html:`<h1>You are now able to log in to your school account using provided email and password in this mail</h1>
+            <p>email: ${teacher.email}</p>
+            <p>password: ${teacher.password}</p>`
         })
         res.status(201).send(teacher);
     } catch (error) {
@@ -66,9 +66,9 @@ exports.updateTeacher = async(req , res, next) => {
                 to: req.body.email,
                 from: 'mohamed.elsayed.abd@outlook.com',
                 subject: 'Updated credentials',
-                html:`<h1>Your login information has been updated the new one is<h1>
-                <p>email: ${req.body.email}<p>
-                <p>password: ${req.body.password}<p>
+                html:`<h1>Your login information has been updated the new one is</h1>
+                <p>email: ${req.body.email}</p>
+                <p>password: ${req.body.password}</p>
                 `
             })
         }
@@ -77,8 +77,8 @@ exports.updateTeacher = async(req , res, next) => {
                 to: req.body.email,
                 from: 'mohamed.elsayed.abd@outlook.com',
                 subject: 'Updated credentials',
-                html:`<h1>Your login email has been updated the new email is<h1>
-                <p>email: ${req.body.email}<p>`
+                html:`<h1>Your login email has been updated the new email is</h1>
+                <p>email: ${req.body.email}</p>`
             })
         }
         else if(teacher.password !== req.body.password){
@@ -86,8 +86,8 @@ exports.updateTeacher = async(req , res, next) => {
                 to: teacher.email,
                 from: 'mohamed.elsayed.abd@outlook.com',
                 subject: 'Updated credentials',
-                html:`<h1>Your login password has been updated the new password is<h1>
-                <p>password: ${req.body.password}<p>`
+                html:`<h1>Your login password has been updated the new password is</h1>
+                <p>password: ${req.body.password}</p>`
             })
         }
         teacher.name = req.body.name;
