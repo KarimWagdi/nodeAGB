@@ -10,6 +10,8 @@ const {v4: uuidv4} = require('uuid');
 const studentRouter = require("./routes/StudentRoute");
 const teacherRouter = require("./routes/TeacherRoute");
 const adminRouter = require('./routes/AdminRoute');
+const classTimeTableRouter = require('./routes/classTimeTableRoute');
+const teacherTimeTableRoute = require('./routes/teacherTimeTableRoute');
 const videosRouter = require("./routes/VideosRoute");
 const eventsRouter =  require("./routes/EventsRoute");
 const gradeRouter = require("./routes/GradeRoute");
@@ -38,32 +40,32 @@ const imageFileFilter = (req, file, cb) => {
 };
 
 
-const videoFileStorage = multer.diskStorage({
-    destination: (req, file, cb)=>{
-        cb(null, 'videos');
-    },
-    filename: (req, file, cb) =>{
-        cb(null, uuidv4()); 
-    }
-});
+// const videoFileStorage = multer.diskStorage({
+//     destination: (req, file, cb)=>{
+//         cb(null, 'videos');
+//     },
+//     filename: (req, file, cb) =>{
+//         cb(null, uuidv4()); 
+//     }
+// });
 
-const videoFileFilter = (req, file, cb) => {
-    if(
-        file.mimetype === 'video/png' ||
-        file.mimetype === 'video/jpg' ||
-        file.mimetype === 'video/jpeg'
-    ){
-        cb(null, true);
-    }else{
-        cb(null, false)
-    }
-};
+// const videoFileFilter = (req, file, cb) => {
+//     if(
+//         file.mimetype === 'video/png' ||
+//         file.mimetype === 'video/jpg' ||
+//         file.mimetype === 'video/jpeg'
+//     ){
+//         cb(null, true);
+//     }else{
+//         cb(null, false)
+//     }
+// };
 
 
 // app.use(bodyParser.urlencoded({ extended : false}));  
 app.use(bodyParser.json());
 app.use(multer({storage: imageFileStorage, fileFilter: imageFileFilter}).single('image'));
-app.use(multer({storage: videoFileStorage, fileFilter: videoFileFilter}).single('video'));
+// app.use(multer({storage: videoFileStorage, fileFilter: videoFileFilter}).single('video'));
 
 app.use(cors);
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -78,6 +80,9 @@ app.use("/api/v1/grade", gradeRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/events", eventsRouter);
 app.use("/api/v1/videos", videosRouter);
+app.use("/api/v1/classtimetable", classTimeTableRouter);
+app.use("/api/v1/teachertimetable", teacherTimeTableRoute);
+
 
 
 
