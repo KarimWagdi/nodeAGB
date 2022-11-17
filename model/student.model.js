@@ -17,7 +17,15 @@ const studentSchema = new Schema({
     grade:{
         type: String,
         required: true
-    }
-})
+    },
+    results:[
+        {
+            subject: String,
+            points: Number,
+            feadback: String,
+            teacherId: Schema.Types.ObjectId
+        }
+    ]
+}) 
 
 module.exports = mongoose.model('Students', studentSchema);

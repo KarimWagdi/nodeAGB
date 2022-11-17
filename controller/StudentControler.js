@@ -2,17 +2,6 @@ const Students = require('../model/student.model');
 const errorThrewer = require('../util/error');
 const nodemailer = require('nodemailer');
 
-// let testAcc = await nodemailer.createTestAccount();
-// const transport = nodemailer.createTransport({
-//     host: "smtp.mailtrap.io",
-//     port: 2525,
-//     secure: false,
-//     requireTLS:true,
-//     auth: {
-//       user: "78f6bd03b59a34",
-//       pass: "fbdf0bf972013e"
-//     }
-//   });
 const transport = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     port: 587,
@@ -122,6 +111,29 @@ exports.deleteStudent = async (req, res, next) => {
             errorThrewer(404, 'No student with this id');
         }
         res.status(200).send(student._id);
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+}
+
+exports.updateResults = async(req, res, next)=>{
+    try {
+        const id = req.params['id'];
+        const student = await Students.findById(id);
+        if(!student){
+            errorThrewer(404, 'This student does not exsists')
+        }
+        const index = student.results.findIndex(ele => ele.teacherId.toString() === req.body.teacherId);
+        if(index > -1){
+            student.results[index] = req.body;
+        }else{
+            student.results.push(req.body);
+        }
+        await student.save();
+        res.status(201).send(student);
     } catch (error) {
         if (!error.statusCode) {
             error.statusCode = 500;
