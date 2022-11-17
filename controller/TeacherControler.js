@@ -56,7 +56,6 @@ exports.saveNewTeacher = async(req , res, next) => {
 exports.updateTeacher = async(req , res, next) => {
     try {
         const id = req.params.id;
-        console.log(id);
         const teacher = await Teacher.findById(id);
         if(!teacher){
             errorThrower(404, 'No teacher for this id');
