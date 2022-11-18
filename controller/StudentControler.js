@@ -141,3 +141,37 @@ exports.updateResults = async(req, res, next)=>{
         next(error);
     }
 }
+
+exports.login = async(req, res, next)=>{
+    try {
+        const student = await Students.findOne({email: req.body.email});
+        if(!student){
+            errorThrewer(404, 'No student for this account');
+        }
+        if(student.password !== req.body.password){
+            errorThrewer(401, 'wrong password')
+        }
+        res.status(200).send(student);
+    } catch (error) {
+        if(!error.statusCode){
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+}
+
+exports.getById = async (req, res, next)=>{
+    try {
+        const id = req.query['id'];
+        const student = await Students.findById(id);
+        if(!student){
+            errorThrewer(404, 'No student for this account');
+        }
+        res.status(200).send(student);
+    } catch (error) {
+        if(!error.statusCode){
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+}

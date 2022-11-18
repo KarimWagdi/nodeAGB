@@ -118,3 +118,21 @@ exports.deleteTeacher = async(req , res, next) => {
         next(error);
     }
 }
+
+exports.login = async(req, res, next)=>{
+    try {
+        const teacher = await Teacher.findOne({email: req.body.email});
+        if(!teacher){
+            errorThrower(404, 'No teacher for this account');
+        }
+        if(teacher.password !== req.body.password){
+            errorThrower(401, 'wrong password')
+        }
+        res.status(200).send(teacher);
+    } catch (error) {
+        if(!error.statusCode){
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+}
