@@ -136,3 +136,19 @@ exports.login = async(req, res, next)=>{
         next(error);
     }
 }
+
+exports.getById = async (req, res, next)=>{
+    try {
+        const id = req.query['id'];
+        const teacher = await Teacher.findById(id);
+        if(!teacher){
+            errorThrower(404, 'No teacher for this account');
+        }
+        res.status(200).send(teacher);
+    } catch (error) {
+        if(!error.statusCode){
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+}
