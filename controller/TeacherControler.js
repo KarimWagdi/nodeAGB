@@ -1,7 +1,8 @@
 const Teacher = require('../model/teacher.model');
 const errorThrower = require('../util/error');
 const nodemailer = require('nodemailer');
-
+const Videos = require('../model/videos.model');
+const imageCleaner = require('../util/clear-image');
 const transport = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     port: 587,
@@ -106,10 +107,18 @@ exports.updateTeacher = async(req , res, next) => {
 exports.deleteTeacher = async(req , res, next) => {
     try {
         const id = req.params.id;
-        const teacher = await Teacher.findByIdAndDelete(id);
+        const teacher = await Teacher.findById(id);
         if(!teacher){
             errorThrower(404, 'No teacher with this id');
         }
+        const videos = await Videos.find({lessonCreator: id});
+        if(videos.length > 0){
+            videos.forEach( async(video) => {
+                await Videos.findByIdAndDelete(video._id);
+                imageCleaner(video.lessonURL);
+            });
+        }
+        await teacher.delete();
         res.status(200).send(teacher._id);
     } catch (error) {
         if(!error.statusCode){
@@ -127,6 +136,22 @@ exports.login = async(req, res, next)=>{
         }
         if(teacher.password !== req.body.password){
             errorThrower(401, 'wrong password')
+        }
+        res.status(200).send(teacher);
+    } catch (error) {
+        if(!error.statusCode){
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+}
+
+exports.getById = async (req, res, next)=>{
+    try {
+        const id = req.query['id'];
+        const teacher = await Teacher.findById(id);
+        if(!teacher){
+            errorThrower(404, 'No teacher for this account');
         }
         res.status(200).send(teacher);
     } catch (error) {
